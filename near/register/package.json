@@ -1,0 +1,22 @@
+{
+  "name": "token_locker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dantenetwork/near-contract-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dantenetwork/near-contract-template/issues"
+  },
+  "homepage": "https://github.com/dantenetwork/near-contract-template#readme",
+  "dependencies": {
+    "near-api-js": "^0.44.2"
+  }
+}
