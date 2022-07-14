@@ -21,9 +21,9 @@ const nearConfig = {
 const Chains = [
   // Platon
   {
-    destinationContract: '0xC0F1706106D2d7208C6586d1C8Aec520d99E9F14',
+    destinationContract: '0xCe100195381d9Be29b0DC42EA082b88AE612FCa5',
     destinationActionName: '0x396f7242',
-    destinationChainName: 'PlatONTEST',
+    destinationChainName: 'PLATON',
   }
 ];
 
@@ -52,7 +52,7 @@ const Chains = [
       args: {
         chain_name: Chains[i].destinationChainName,
         sender: Chains[i].destinationContract,
-        action_name: 'ft_mint',
+        action_name: 'transfer',
       },
       gas,
     });

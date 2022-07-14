@@ -106,13 +106,13 @@ impl Locker {
             &context.action,
         );
 
-        let receiver_id_item = payload.get_item("receiver_id".to_string()).unwrap();
+        let receiver_id_item = payload.get_item("to".to_string()).unwrap();
         let receiver_id: AccountId = receiver_id_item
             .get_value::<String>()
             .unwrap()
             .parse()
             .unwrap();
-        let amount_item = payload.get_item("amount".to_string()).unwrap();
+        let amount_item = payload.get_item("num".to_string()).unwrap();
         let amount = amount_item.get_value::<U128>().unwrap();
         ext_ft::ft_mint(
             receiver_id,

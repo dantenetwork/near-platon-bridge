@@ -35,12 +35,34 @@ Replace `<PRIVATE_KEY>` with your private key.
 
 Go to the [testnet](https://wallet.testnet.near.org/create) to create an account.
 
-### Get DAT Tokens
+instll NEAR CLI (command line interface)
 
+```sh
+npm install -g near-cli
+```
+### Get DAT Test Tokens
+
+set token contract and locker contract:
+
+```sh
+export TOKEN="16edad39fa9e1a6ae33ce3f35b7c301dbf974e2594b3d26f16c00c3105853751"
+export LOCKER="ae997e9b674480cb9bc88765242c3cbf71267044b51a2b8f99f20028aa441d89"
+```
+
+get test token:
+
+```sh
+near call $TOKEN ft_faucet --accountId RECEIVER_ID --depositYocto 1
+```
 
 ### Transfer DAT from Near to PlatON
 
-```
+Call the token contract `ft_transfer_call` method, and `receiver_id` is locker contract; `amount` is the amount you want to transfer; `msg` must be a string of json object, with two keys, `receiver` is the address you want receive, and `to_chain` is the chain you receive token.
+
+example:
+
+```sh
+near call $TOKEN ft_transfer_call '{"receiver_id": "'${LOCKER}'", "amount":"1000000000000000000", "msg": "{\"receiver\":\"0x3aE841B899Ae4652784EA734cc61F524c36325d1\",\"to_chain\":\"PLATON\"}"}' --accountId $token --depositYocto 1 --gas 65000000000000
 ```
 
 **Query Results**
