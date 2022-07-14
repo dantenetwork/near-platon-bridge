@@ -69,6 +69,7 @@ near call $TOKEN ft_transfer_call '{"receiver_id": "'${LOCKER}'", "amount":"1000
 
 - Near: https://wallet.testnet.near.org/
 - PlatON: Import DAT token in the Metamask, the contract address is *0x5639983D7B9d0e5a0f3998a2A34a496718d93936*.
+
 ![image](https://user-images.githubusercontent.com/83757490/178889548-791eb7e4-0407-483a-a99c-66e288356613.png)
 
 
