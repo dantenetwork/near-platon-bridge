@@ -1,0 +1,14 @@
+{
+	"PLATON": {
+		"nodeAddress": "http://35.247.155.162:6789",
+		"crossChainContractAddress": "0xbbcE5f2A66Bd704a4580Ee622be27F6D012CfEE0",
+		"lockerContractAddress": "0xCe100195381d9Be29b0DC42EA082b88AE612FCa5",
+		"tokenContractAddress": "0x5639983D7B9d0e5a0f3998a2A34a496718d93936",
+		"chainId": 210309,
+		"interface": "EVM"
+	},
+	"NEARTEST": {
+		"lockerContractAddress": "ae997e9b674480cb9bc88765242c3cbf71267044b51a2b8f99f20028aa441d89",
+		"interface": "NEAR"
+	}
+}

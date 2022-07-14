@@ -1,0 +1,8 @@
+{
+	"EVM": {
+        "receiveToken": "0x396f7242"
+	},
+	"NEAR": {
+        "receiveToken": "transfer"
+	}
+}
