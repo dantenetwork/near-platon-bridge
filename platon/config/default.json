@@ -1,9 +1,9 @@
 {
-	"PLATON": {
+	"PLATONEVMDEV": {
 		"nodeAddress": "http://35.247.155.162:6789",
-		"crossChainContractAddress": "0xbbcE5f2A66Bd704a4580Ee622be27F6D012CfEE0",
-		"lockerContractAddress": "0xCe100195381d9Be29b0DC42EA082b88AE612FCa5",
-		"tokenContractAddress": "0x5639983D7B9d0e5a0f3998a2A34a496718d93936",
+		"crossChainContractAddress": "0x070A2Bcb7aFb485D9ea494169645823Ae21BE68c",
+		"lockerContractAddress": "0x6f22D73F3490db74D4858B3b598980bA5bf48d47",
+		"tokenContractAddress": "0x73cA83dD208e37450eC78d3Dfe28dc93fee1Aa05",
 		"chainId": 210309,
 		"interface": "EVM"
 	},

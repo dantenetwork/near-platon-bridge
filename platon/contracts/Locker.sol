@@ -26,15 +26,6 @@ contract Locker is ContractBase {
         token = DanteToken(_address);
     }
 
-    function get_address(uint8[] memory u) internal pure returns (address) {
-        uint160 y = 0;
-        for (uint i = 0; i < u.length; i++) {
-            y <<= 8;
-            y += u[i];
-        }
-        return address(y);
-    }
-
     /**
      * Map tokens to another chain
      * @param _toChain - to chain name
@@ -42,7 +33,7 @@ contract Locker is ContractBase {
      */
     function transferToken(
         string calldata _toChain,
-        string calldata _toAddress,
+        AddressStruct calldata _toAddress,
         uint128 _num
     ) external {
         // Burn tokens
@@ -53,7 +44,7 @@ contract Locker is ContractBase {
         data.items = new PayloadItem[](2);
         PayloadItem memory item = data.items[0];
         item.name = "to";
-        item.msgType = MsgType.EvmString;
+        item.msgType = MsgType.EvmAddress;
         item.value = abi.encode(_toAddress);
         item = data.items[1];
         item.name = "num";
@@ -84,9 +75,9 @@ contract Locker is ContractBase {
         );
 
         // Parse payload
-        (uint8[] memory _u8arry) = abi.decode(_payload.items[0].value, (uint8[]));
+        (AddressStruct memory _addr) = abi.decode(_payload.items[0].value, (AddressStruct));
         (uint128 _num) = abi.decode(_payload.items[1].value, (uint128));
-        address _to = get_address(_u8arry);
+        address _to = _addr.evmAddress;
         
         // Mint tokens
         token.mint(_to, _num);

@@ -75,8 +75,25 @@ async function registerDestnContract(chainName) {
 }
 
 async function transferToken(toChain, to, num) {
+  let addr = {};
+  let destConfig = config.get(toChain);
+  if (destConfig.interface == 'EVM') {
+    addr.chainType = 1;
+    addr.evmAddress = to;
+    addr.otherAddress = '';
+  }
+  else if (destConfig.interface == 'INK') {
+    addr.chainType = 2;
+    addr.evmAddress = '0x0000000000000000000000000000000000000000';
+    addr.otherAddress = to;
+  }
+  else if (destConfig.interface == 'NEAR') {
+    addr.chainType = 3;
+    addr.evmAddress = '0x0000000000000000000000000000000000000000';
+    addr.otherAddress = to;
+  }
   await ethereum.sendTransaction(web3, netConfig.chainId, contract, 'transferToken', testAccountPrivateKey,
-    [toChain, to, num]);
+    [toChain, addr, num]);
 }
 
 async function getTokenAmount(account) {
