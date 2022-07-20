@@ -7,6 +7,10 @@
 		"chainId": 210309,
 		"interface": "EVM"
 	},
+	"SHIBUYA": {
+		"lockerContractAddress": "5ESyY5oeutF9kXbdbEJSW849HrepTqectusnrHqaxMMTQYDN",
+		"interface": "INK"
+	},
 	"NEARTEST": {
 		"lockerContractAddress": "ae997e9b674480cb9bc88765242c3cbf71267044b51a2b8f99f20028aa441d89",
 		"interface": "NEAR"

@@ -2,6 +2,9 @@
 	"EVM": {
         "receiveToken": "0x396f7242"
 	},
+	"INK": {
+        "receiveToken": "0x6DDEC0D1"
+	},
 	"NEAR": {
         "receiveToken": "transfer"
 	}
