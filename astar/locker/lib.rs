@@ -287,7 +287,7 @@ mod locker {
             let addr_item = payload.get_item(String::try_from("to").unwrap()).unwrap();
             let addr = addr_item.in_to::<InkAddressData>().unwrap();
             let num_item = payload.get_item(String::try_from("num").unwrap()).unwrap();
-            let num = addr_item.in_to::<u128>().unwrap();
+            let num = num_item.in_to::<u128>().unwrap();
             let context: IContext = cross_chain_helper::get_context(self).unwrap();
             
             ink_env::debug_println!("Target address is: {:?}", addr);
