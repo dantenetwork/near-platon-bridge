@@ -1,16 +1,18 @@
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 // use near_sdk::collections::UnorderedMap;
+use near_sdk::collections::UnorderedMap;
 use near_sdk::json_types::U128;
 use near_sdk::serde::{Deserialize, Serialize};
 use near_sdk::{env, near_bindgen, AccountId, BorshStorageKey, PanicOnDefault};
 use near_sdk::{ext_contract, serde_json, Gas};
-use protocol_sdk::{Content, Context, OmniChain, Payload, Value};
+use protocol_sdk::{Address, Content, Context, OmniChain, Payload, Value};
 
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
 pub struct Locker {
     omni_chain: OmniChain,
     token_contract_id: AccountId,
+    address_chain_type: UnorderedMap<String, u8>,
 }
 
 #[ext_contract(ext_ft)]
@@ -23,6 +25,7 @@ pub trait FungibleToken {
 enum StorageKey {
     DestinationContract,
     PermittedContract,
+    AddressChainType,
 }
 
 #[derive(Clone, PartialEq, BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
@@ -48,6 +51,7 @@ impl Locker {
                 omni_chain_contract_id,
             ),
             token_contract_id,
+            address_chain_type: UnorderedMap::new(StorageKey::AddressChainType),
         }
     }
 
@@ -70,13 +74,11 @@ impl Locker {
             .get(&action_name)
             .expect("contract not register");
         let mut payload = Payload::new();
-        let address: String = message.receiver.as_str().chars().skip(2).collect();
-        let address_bytes = hex::decode(address);
-        if address_bytes.is_ok() {
-            payload.push_item("to".to_string(), Value::VecUint8(address_bytes.unwrap()));
-        } else {
-            payload.push_item("to".to_string(), Value::String(message.receiver))
-        }
+        let chain_type = self.address_chain_type.get(&message.to_chain).unwrap_or(1);
+        payload.push_item(
+            "to".to_string(),
+            Value::Address(Address::new(message.receiver, chain_type)),
+        );
         payload.push_item("num".to_string(), Value::Uint128(amount));
         let content = Content {
             contract: contract.contract_address.clone(),
@@ -108,8 +110,9 @@ impl Locker {
 
         let receiver_id_item = payload.get_item("to".to_string()).unwrap();
         let receiver_id: AccountId = receiver_id_item
-            .get_value::<String>()
+            .get_value::<Address>()
             .unwrap()
+            .get()
             .parse()
             .unwrap();
         let amount_item = payload.get_item("num".to_string()).unwrap();
@@ -121,6 +124,24 @@ impl Locker {
             1,
             Gas(5_000_000_000_000),
         );
+    }
+
+    pub fn set_omni_chain_contract_id(&mut self, account_id: AccountId) {
+        assert_eq!(
+            env::predecessor_account_id(),
+            self.omni_chain.owner_id,
+            "Unauthorized"
+        );
+        self.omni_chain.omni_chain_contract_id = account_id;
+    }
+
+    pub fn set_address_chain_type(&mut self, chain_name: String, chain_type: u8) {
+        assert_eq!(
+            env::predecessor_account_id(),
+            self.omni_chain.owner_id,
+            "Unauthorized"
+        );
+        self.address_chain_type.insert(&chain_name, &chain_type);
     }
 }
 
