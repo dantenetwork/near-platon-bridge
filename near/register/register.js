@@ -19,11 +19,19 @@ const nearConfig = {
 
 // destination contract information
 const Chains = [
-  // Platon
+  // PLATONEVMDEV
   {
-    destinationContract: '0xCe100195381d9Be29b0DC42EA082b88AE612FCa5',
+    destinationContract: '0x6f22D73F3490db74D4858B3b598980bA5bf48d47',
     destinationActionName: '0x396f7242',
-    destinationChainName: 'PLATON',
+    destinationChainName: 'PLATONEVMDEV',
+    address_type: 1
+  },
+  // SHIBUYA
+  {
+    destinationContract: '5ESyY5oeutF9kXbdbEJSW849HrepTqectusnrHqaxMMTQYDN',
+    destinationActionName: '0x6DDEC0D1',
+    destinationChainName: 'SHIBUYA',
+    address_type: 2
   }
 ];
 
@@ -53,6 +61,16 @@ const Chains = [
         chain_name: Chains[i].destinationChainName,
         sender: Chains[i].destinationContract,
         action_name: 'transfer',
+      },
+      gas,
+    });
+
+    await account.functionCall({
+      contractId: lockerContractId,
+      methodName: 'set_address_chain_type',
+      args: {
+        chain_name: Chains[i].destinationChainName,
+        chain_type: Chains[i].address_type,
       },
       gas,
     });
